@@ -1,3 +1,5 @@
+#nullable enable
+
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -423,7 +425,8 @@ namespace RelEcs
         where C7 : class
     {
         static readonly Func<Archetypes, Mask, List<Table>, Query> CreateQuery =
-            (archetypes, mask, matchingTables) => new Query<C1, C2, C3, C4, C5, C6, C7>(archetypes, mask, matchingTables);
+            (archetypes, mask, matchingTables) =>
+                new Query<C1, C2, C3, C4, C5, C6, C7>(archetypes, mask, matchingTables);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public QueryBuilder(Archetypes archetypes) : base(archetypes)
@@ -485,7 +488,8 @@ namespace RelEcs
         where C8 : class
     {
         static readonly Func<Archetypes, Mask, List<Table>, Query> CreateQuery =
-            (archetypes, mask, matchingTables) => new Query<C1, C2, C3, C4, C5, C6, C7, C8>(archetypes, mask, matchingTables);
+            (archetypes, mask, matchingTables) =>
+                new Query<C1, C2, C3, C4, C5, C6, C7, C8>(archetypes, mask, matchingTables);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public QueryBuilder(Archetypes archetypes) : base(archetypes)
@@ -548,7 +552,8 @@ namespace RelEcs
         where C9 : class
     {
         static readonly Func<Archetypes, Mask, List<Table>, Query> CreateQuery =
-            (archetypes, mask, matchingTables) => new Query<C1, C2, C3, C4, C5, C6, C7, C8, C9>(archetypes, mask, matchingTables);
+            (archetypes, mask, matchingTables) =>
+                new Query<C1, C2, C3, C4, C5, C6, C7, C8, C9>(archetypes, mask, matchingTables);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public QueryBuilder(Archetypes archetypes) : base(archetypes)

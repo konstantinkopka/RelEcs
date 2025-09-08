@@ -1,3 +1,5 @@
+#nullable enable
+
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -245,9 +247,10 @@ namespace RelEcs
             var entity = _archetypes.Spawn();
             _archetypes.AddComponent(StorageType.Create<SystemList>(), entity.Identity, new SystemList());
             _archetypes.AddComponent(StorageType.Create<LifeTime>(), entity.Identity, new LifeTime());
-            _archetypes.AddComponent(StorageType.Create<Trigger<T>>(), entity.Identity, new Trigger<T> { Value = trigger });
+            _archetypes.AddComponent(StorageType.Create<Trigger<T>>(), entity.Identity,
+                new Trigger<T> { Value = trigger });
         }
-        
+
         // TODO: maybe move this into _archetypes
         readonly Dictionary<Type, Dictionary<int, Query>> _triggerQueries = new();
 
@@ -271,12 +274,13 @@ namespace RelEcs
                 MaskPool.Add(mask);
                 return (TriggerQuery<T>)query;
             }
-            
+
             // TODO: This is kind of hacky. Figure out a better way to make sure trigger queries have the right tables
             var dummy = _archetypes.Spawn();
             _archetypes.AddComponent(StorageType.Create<SystemList>(), dummy.Identity, new SystemList());
             _archetypes.AddComponent(StorageType.Create<LifeTime>(), dummy.Identity, new LifeTime());
-            _archetypes.AddComponent(StorageType.Create<Trigger<T>>(), dummy.Identity, new Trigger<T> { Value = default! });
+            _archetypes.AddComponent(StorageType.Create<Trigger<T>>(), dummy.Identity,
+                new Trigger<T> { Value = default! });
             _archetypes.Despawn(dummy.Identity);
 
             var matchingTables = new List<Table>();
