@@ -27,5 +27,10 @@ namespace RelEcs
                 system.Run(world);
             }
         }
+
+        public List<ISystem> GetSystems()
+        {
+            return _systems;
+        }
     }
 }
