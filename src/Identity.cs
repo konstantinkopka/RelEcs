@@ -16,13 +16,13 @@ namespace RelEcs
         }
     }
 
-    public readonly struct Identity
+    public struct Identity
     {
         public static Identity None = default;
         public static Identity Any = new(int.MaxValue, 0);
 
         public readonly int Id;
-        public readonly ushort Generation;
+        public ushort Generation;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Identity(int id, ushort generation = 1)

@@ -73,6 +73,7 @@ namespace RelEcs
             meta.Row = 0;
             meta.Identity = Identity.None;
 
+            identity.Generation += 1;
             UnusedIds.Enqueue(identity);
 
             if (!_typesByRelationTarget.TryGetValue(identity, out var list))
@@ -148,7 +149,7 @@ namespace RelEcs
         public bool HasComponent(StorageType type, Identity identity)
         {
             var meta = Meta[identity.Id];
-            return meta.Identity != Identity.None && Tables[meta.TableId].Types.Contains(type);
+            return IsAlive(meta.Identity) && Tables[meta.TableId].Types.Contains(type);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -283,7 +284,7 @@ namespace RelEcs
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal bool IsAlive(Identity identity)
         {
-            return Meta[identity.Id].Identity != Identity.None;
+            return Meta[identity.Id].Identity == identity;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -338,6 +339,11 @@ namespace RelEcs
         {
             var meta = Meta[identity.Id];
             var table = Tables[meta.TableId];
+
+            if (!IsAlive(meta.Identity))
+            {
+                return Array.Empty<(StorageType, object?)>();
+            }
 
             var list = ListPool<(StorageType, object?)>.Get();
 
