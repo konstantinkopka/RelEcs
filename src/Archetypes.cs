@@ -140,8 +140,15 @@ namespace RelEcs
         public object GetComponent(StorageType type, Identity identity)
         {
             var meta = Meta[identity.Id];
+
+            if (!IsAlive(identity))
+            {
+                return null!;
+            }
+
             var table = Tables[meta.TableId];
             var storage = table.GetStorage(type);
+
             return storage.GetValue(meta.Row);
         }
 
@@ -149,7 +156,7 @@ namespace RelEcs
         public bool HasComponent(StorageType type, Identity identity)
         {
             var meta = Meta[identity.Id];
-            return IsAlive(meta.Identity) && Tables[meta.TableId].Types.Contains(type);
+            return IsAlive(identity) && Tables[meta.TableId].Types.Contains(type);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -340,7 +347,7 @@ namespace RelEcs
             var meta = Meta[identity.Id];
             var table = Tables[meta.TableId];
 
-            if (!IsAlive(meta.Identity))
+            if (!IsAlive(identity))
             {
                 return Array.Empty<(StorageType, object?)>();
             }
