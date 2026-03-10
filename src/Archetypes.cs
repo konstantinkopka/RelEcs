@@ -155,8 +155,11 @@ namespace RelEcs
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool HasComponent(StorageType type, Identity identity)
         {
+            if (!IsAlive(identity))
+                return false;
+
             var meta = Meta[identity.Id];
-            return IsAlive(identity) && Tables[meta.TableId].Types.Contains(type);
+            return Tables[meta.TableId].Types.Contains(type);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -416,8 +419,6 @@ namespace RelEcs
                 entity = Spawn();
                 _typeEntities.Add(type, entity);
             }
-
-            ;
 
             return entity;
         }

@@ -42,7 +42,7 @@ namespace RelEcs
         public static bool operator ==(Entity? left, Entity? right)
         {
             if (left is null && right is null) return true;
-            if (left != null && right != null) return left.Equals(right);
+            if (left is not null && right is not null) return left.Equals(right);
             return false;
         }
 
@@ -50,7 +50,7 @@ namespace RelEcs
         public static bool operator !=(Entity? left, Entity? right)
         {
             if (left is null && right is null) return false;
-            if (left != null && right != null) return !left.Equals(right);
+            if (left is not null && right is not null) return !left.Equals(right);
             return true;
         }
     }
