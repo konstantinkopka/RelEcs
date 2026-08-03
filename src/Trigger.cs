@@ -28,7 +28,7 @@ namespace RelEcs
             {
                 lifeTime.Value++;
 
-                if (lifeTime.Value < 2) return;
+                if (lifeTime.Value < 2) continue;
 
                 ListPool<Type>.Add(systemList.List);
                 world.Despawn(entity);
